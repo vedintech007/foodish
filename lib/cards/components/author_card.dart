@@ -20,12 +20,6 @@ class AuthorCard extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
-          // AuthorCard(
-          //   authorName: "Maui VED",
-          //   title: "Software Engineer",
-          //   imageProvider: AssetImage("assets/author_katz.jpeg"),
-          // ),
-
           CircleImage(
             imageProvider: imageProvider,
             imageRadius: 28,
@@ -44,13 +38,18 @@ class AuthorCard extends StatelessWidget {
               ),
             ],
           ),
-
+          const Spacer(),
           IconButton(
-            onPressed: () {},
             icon: const Icon(
-              Icons.favorite,
+              Icons.favorite_border,
               color: Colors.red,
             ),
+            onPressed: () {
+              const snackBar = SnackBar(
+                content: Text("Favorite pressed"),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            },
           ),
         ],
       ),
