@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:ved_foodish/api/mock_fooderlich_service.dart';
+import 'package:ved_foodish/components/components.dart';
 import 'package:ved_foodish/components/today_recipe_list_view.dart';
 import 'package:ved_foodish/models/explore_data.dart';
 
@@ -25,9 +26,8 @@ class ExploreScreen extends StatelessWidget {
                 recipes: recipes,
               ),
               const SizedBox(height: 16),
-              Container(
-                height: MediaQuery.of(context).size.height / 1.7,
-                color: Colors.green,
+              FriendPostListView(
+                friendPosts: snapshot.data?.friendPosts ?? [],
               ),
             ],
           );
