@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ved_foodish/cards/components/circle_image.dart';
 import 'package:ved_foodish/fooderlich_theme.dart';
 
-class AuthorCard extends StatelessWidget {
+class AuthorCard extends StatefulWidget {
   const AuthorCard({
     Key? key,
     required this.authorName,
@@ -15,13 +15,26 @@ class AuthorCard extends StatelessWidget {
   final ImageProvider? imageProvider;
 
   @override
+  State<AuthorCard> createState() => _AuthorCardState();
+}
+
+class _AuthorCardState extends State<AuthorCard> {
+  bool _isFavorited = false;
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.grey[300],
+        borderRadius: const BorderRadius.all(
+          Radius.circular(8),
+        ),
+      ),
       child: Row(
         children: [
           CircleImage(
-            imageProvider: imageProvider,
+            imageProvider: widget.imageProvider,
             imageRadius: 28,
           ),
           const SizedBox(width: 8),
@@ -29,26 +42,30 @@ class AuthorCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                authorName,
+                widget.authorName,
                 style: FooderlichTheme.lightTextTheme.headline2,
               ),
               Text(
-                title,
+                widget.title,
                 style: FooderlichTheme.lightTextTheme.headline3,
               ),
             ],
           ),
           const Spacer(),
           IconButton(
-            icon: const Icon(
-              Icons.favorite_border,
-              color: Colors.red,
+            icon: Icon(
+              _isFavorited ? Icons.favorite : Icons.favorite_border,
+              size: 30,
+              color: Colors.red[400],
             ),
             onPressed: () {
-              const snackBar = SnackBar(
-                content: Text("Favorite pressed"),
-              );
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              // const snackBar = SnackBar(
+              //   content: Text("Favorite pressed"),
+              // );
+              // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              setState(() {
+                _isFavorited = !_isFavorited;
+              });
             },
           ),
         ],
