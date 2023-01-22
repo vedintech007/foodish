@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:ved_foodish/models/grocery_manager.dart';
 import 'package:ved_foodish/screens/empty_grocery_screen.dart';
 import 'package:ved_foodish/screens/grocery_item_screen.dart';
+import 'package:ved_foodish/screens/grocery_list_screen.dart';
 
 class GroceryScreen extends StatelessWidget {
   const GroceryScreen({super.key});
@@ -43,18 +44,7 @@ class GroceryScreen extends StatelessWidget {
     return Consumer<GroceryManager>(
       builder: (context, manager, child) {
         if (manager.groceryItems.isNotEmpty) {
-          print(manager.groceryItems.first.isComplete);
-          print(manager.groceryItems.last.name);
-          return Container(
-            color: Colors.amber,
-            child: Center(
-              child: Column(
-                children: [
-                  for (var items in manager.groceryItems) Text("${items.name} - Is Complete => ${items.isComplete}"),
-                ],
-              ),
-            ),
-          );
+          return GroceryListScreen(manager: manager);
         } else {
           return const EmptyGroceryScreen();
         }

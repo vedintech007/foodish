@@ -21,11 +21,9 @@ class GroceryTile extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // 1
           Row(
             children: [
               Container(width: 5.0, color: item.color),
-              // 3
               const SizedBox(width: 16.0), // 4
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
