@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ved_foodish/models/models.dart';
+import 'package:ved_foodish/screens/empty_grocery_screen.dart';
 import 'package:ved_foodish/screens/explore_screen.dart';
 import 'package:ved_foodish/screens/grocery_screen.dart';
 import 'package:ved_foodish/screens/recipes_screen.dart';
@@ -32,9 +33,12 @@ class HomeState extends State<Home> {
     return Consumer<TabManager>(builder: (context, tabManager, child) {
       return Scaffold(
         appBar: AppBar(
-          title: Text(
-            'VED Foodish',
-            style: Theme.of(context).textTheme.headline6,
+          title: GestureDetector(
+            onTap: () {},
+            child: Text(
+              'VED Foodish',
+              style: Theme.of(context).textTheme.headline6,
+            ),
           ),
         ),
         body: pages[tabManager.selectedTab],
