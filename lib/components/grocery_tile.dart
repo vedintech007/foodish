@@ -16,7 +16,6 @@ class GroceryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Change this Widget
     return SizedBox(
       height: 100.0,
       child: Row(
@@ -73,6 +72,7 @@ class GroceryTile extends StatelessWidget {
         'Low',
         style: GoogleFonts.lato(
           decoration: textDecoration,
+          color: Colors.green,
         ),
       );
     } else if (item.importance == Importance.meduim) {
@@ -81,6 +81,7 @@ class GroceryTile extends StatelessWidget {
         style: GoogleFonts.lato(
           fontWeight: FontWeight.w800,
           decoration: textDecoration,
+          color: Colors.amber,
         ),
       );
     } else if (item.importance == Importance.high) {

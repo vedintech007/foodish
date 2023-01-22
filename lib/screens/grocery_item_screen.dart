@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 import 'package:ved_foodish/components/grocery_tile.dart';
 import 'package:ved_foodish/models/models.dart';
 
@@ -64,6 +65,7 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
     _nameController.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     // TODO: Add GroceryItemScreen Scaffold
     return Scaffold(
@@ -72,7 +74,27 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
           IconButton(
             icon: const Icon(Icons.check),
             onPressed: () {
-              // TODO: Add callback handler
+              final groceryItem = GroceryItem(
+                id: widget.originalItem?.id ?? const Uuid().v1(),
+                name: _nameController.text,
+                importance: _importance,
+                color: _currentColor,
+                quantity: _currentSliderValue,
+                date: DateTime(
+                  _dueDate.year,
+                  _dueDate.month,
+                  _dueDate.day,
+                  _timeOfDay.hour,
+                  _timeOfDay.minute,
+                ),
+              );
+
+              //
+              if (widget.isUpdating) {
+                widget.onUpdate(groceryItem);
+              } else {
+                widget.onCreate(groceryItem);
+              }
             },
           )
         ],
@@ -98,22 +120,24 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
             buildQuantityField(),
 
             //
-            GroceryTile(
-              item: GroceryItem(
-                id: 'previewMode',
-                name: _name,
-                importance: _importance,
-                color: _currentColor,
-                quantity: _currentSliderValue,
-                date: DateTime(
-                  _dueDate.year,
-                  _dueDate.month,
-                  _dueDate.day,
-                  _timeOfDay.hour,
-                  _timeOfDay.minute,
-                ),
-              ),
-            ),
+            _nameController.text != "" && _currentSliderValue != 0
+                ? GroceryTile(
+                    item: GroceryItem(
+                      id: 'previewMode',
+                      name: _name,
+                      importance: _importance,
+                      color: _currentColor,
+                      quantity: _currentSliderValue,
+                      date: DateTime(
+                        _dueDate.year,
+                        _dueDate.month,
+                        _dueDate.day,
+                        _timeOfDay.hour,
+                        _timeOfDay.minute,
+                      ),
+                    ),
+                  )
+                : Container(),
           ],
         ),
       ),

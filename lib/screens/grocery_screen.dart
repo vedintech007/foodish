@@ -43,10 +43,16 @@ class GroceryScreen extends StatelessWidget {
     return Consumer<GroceryManager>(
       builder: (context, manager, child) {
         if (manager.groceryItems.isNotEmpty) {
+          print(manager.groceryItems.first.isComplete);
+          print(manager.groceryItems.last.name);
           return Container(
             color: Colors.amber,
-            child: const Center(
-              child: Text("Yeah i got some data here"),
+            child: Center(
+              child: Column(
+                children: [
+                  for (var items in manager.groceryItems) Text("${items.name} - Is Complete => ${items.isComplete}"),
+                ],
+              ),
             ),
           );
         } else {
